@@ -52,14 +52,6 @@ img {
   border-radius: 12px;
 }
 
-article {
-  background-color: lightgray;
-  border-radius: 16px;
-  padding: 16px;
-  width: 384px;
-  margin: 8px;
-}
-
 a {
   color: beige;
 }
@@ -74,4 +66,23 @@ span {
   border-radius: 6px;
   background-color: darkgray;
   font-weight: bold;
+}
+
+.article {
+  display: flex;
+  justify-content: center;
+  gap: 100px
+}
+
+.movieArticle {
+  display: grid;
+  width: 75%;
+  box-shadow: rgb(36 220 36 / 0.5) 0 0 10px 5px;
+  background-color: rgb(36 220 36 / 0.25);
+  margin-bottom: 50px;
+  padding: 20px 20px 20px 20px;
+}
+
+.poster {
+  box-shadow: slategray 0 0 2px 2px;
 }

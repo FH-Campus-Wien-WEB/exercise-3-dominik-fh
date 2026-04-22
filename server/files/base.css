@@ -13,8 +13,14 @@ button {
     border-width: 1px;
     border-radius: 4px;
     font-size: 105%;
+    cursor: pointer;
 }
 
 button:hover {
   background-color: darkgray;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
 }

@@ -20,37 +20,32 @@ app.use(express.static(path.join(__dirname, 'files')));
    When a query parameter for a specific genre is given, 
    return only movies that have the given genre
  */
+
 app.get('/movies', function (req, res) {
-  let movies = Object.values(movieModel)
-  res.send(movies);
+  res.status(200).send(Object.values(movieModel.movies))
 })
 
-// Configure a 'get' endpoint for a specific movie
 app.get('/movies/:imdbID', function (req, res) {
-  const id = req.params.imdbID
-  const exists = id in movieModel
- 
-  if (exists) {
-    res.send(movieModel[id])
+  const imdbID = req.params.imdbID
+
+  if (movieModel.movies[imdbID]) {
+    res.status(200).send(movieModel.movies[imdbID])
   } else {
-    res.sendStatus(404)    
+    res.status(404).send('Movie not found!')
   }
 })
 
-app.put('/movies/:imdbID', function(req, res) {
+app.put('/movies/:imdbID', function (req, res) {
+  const imdbID = req.params.imdbID
+  const movie = req.body
 
-  const id = req.params.imdbID
-  const exists = id in movieModel
-
-  movieModel[req.params.imdbID] = req.body;
-  
-  if (!exists) {
-    res.status(201)
-    res.send(req.body)
-  } else {
+  if (movieModel.movies[imdbID]) {
+    movieModel.movies[imdbID] = movie
     res.sendStatus(200)
+  } else {
+    movieModel.movies[imdbID] = movie
+    res.status(201).send(movie)
   }
-  
 })
 
 app.listen(3000)
