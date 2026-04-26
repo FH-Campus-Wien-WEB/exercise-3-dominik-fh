@@ -1,11 +1,11 @@
 body {
-  font-family: "Trebuchet MS", sans-serif;
-  background-color: brown;
-  color: beige;
+    font-family: "Trebuchet MS", sans-serif;
+    background-color: lightgreen;
+    color: darkslategray;
 }
 
 main {
-  color: #333;
+    color: #333;
 }
 
 button {
@@ -17,10 +17,15 @@ button {
 }
 
 button:hover {
-  background-color: darkgray;
+    background-color: darkgray;
 }
 
 header {
     display: flex;
     justify-content: space-between;
+}
+
+nav {
+    background-color: green;
+    color: beige;
 }

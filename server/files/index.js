@@ -58,6 +58,25 @@ function appendMovie(movie, element) {
     element.append(article);
 }
 
+function createGenreButton(label, genre) {
+    const listItem = document.createElement("li")
+    const button = document.createElement("button")
+
+    button.type = "button"
+    button.textContent = label
+    button.addEventListener("click", () => {
+        document.querySelectorAll("nav button").forEach(navButton => {
+            // toggles class is-active only for button that got clicked
+            navButton.classList.toggle("is-active", navButton === button)
+        })
+
+        loadMovies(genre)
+    })
+
+    listItem.append(button)
+    return listItem
+}
+
 function loadMovies(genre) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -78,7 +97,9 @@ function loadMovies(genre) {
     }
 
     const url = new URL("/movies", location.href)
-    /* Task 1.4. Add query parameter to the url if a genre is given */
+    if (genre) {
+        url.searchParams.set("genre", genre)
+    }
 
     xhr.open("GET", url)
     xhr.send()
@@ -94,6 +115,11 @@ window.onload = function () {
                initialize them with a click handler that calls the
                loadMovies(...) function above. */
             const genres = JSON.parse(xhr.responseText);
+            listElement.replaceChildren(createGenreButton("All movies", ""))
+
+            for (const genre of genres) {
+                listElement.append(createGenreButton(genre, genre))
+            }
 
             /* When a first button exists, we click it to load all movies. */
             const firstButton = document.querySelector("nav button");
