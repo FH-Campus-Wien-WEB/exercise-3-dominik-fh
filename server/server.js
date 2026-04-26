@@ -16,8 +16,8 @@ app.use(express.static(path.join(__dirname, 'files')));
    that are currently in the movie model.
 */
 app.get('/genres', function (req, res) {
-    // flatMap makes an array from all sub-arrays
-    const genres = [...Object.values(movieModel.movies).flatMap(movie => movie.Genres)].sort()
+    // Collect all genres, remove duplicates, and return them alphabetically.
+    const genres = [...new Set(Object.values(movieModel.movies).flatMap(movie => movie.Genres))].sort()
 
     res.status(200).send(genres)
 })
@@ -28,7 +28,7 @@ app.get('/genres', function (req, res) {
  */
 
 app.get('/movies', function (req, res) {
-    const { genre } = req.query
+    const {genre} = req.query
     const movies = Object.values(movieModel.movies)
     const filteredMovies = genre
         ? movies.filter(movie => movie.Genres.includes(genre))
